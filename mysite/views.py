@@ -37,6 +37,19 @@ def bihua(request):
           'Grade3F_L10': ThirdgradeF_LessonTenHanzi,
           'Grade3F_L11': ThirdgradeF_LessonElevenHanzi,
           'Grade3F_L12': ThirdgradeF_LessonTwelveHanzi,
+
+          'Grade3S_L1': ThirdgradeF_LessonOneHanzi,
+          'Grade3S_L2': ThirdgradeF_LessonTwoHanzi,
+          'Grade3S_L3': ThirdgradeF_LessonThreeHanzi,
+          'Grade3S_L4': ThirdgradeF_LessonFourHanzi,
+          'Grade3S_L5': ThirdgradeF_LessonFiveHanzi,
+          'Grade3S_L6': ThirdgradeF_LessonSixHanzi,
+          'Grade3S_L7': ThirdgradeF_LessonSevenHanzi,
+          'Grade3S_L8': ThirdgradeF_LessonEightHanzi,
+          'Grade3S_L9': ThirdgradeF_LessonNineHanzi,
+          'Grade3S_L10': ThirdgradeF_LessonTenHanzi,
+          'Grade3S_L11': ThirdgradeF_LessonElevenHanzi,
+          'Grade3S_L12': ThirdgradeF_LessonTwelveHanzi,
     }
     if course in course_models:
      HanziCourse = course_models[course].objects.all().order_by('id')

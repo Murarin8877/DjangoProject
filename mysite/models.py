@@ -9,7 +9,7 @@ class test(models.Model):
     def __str__(self):
         return self.Radical
 """ first semester上學期 F表示 跟second semester下學期表示S """
-""" 三上第一課 """
+""" 筆順練習三上第一課 """
 class ThirdgradeF_LessonOneHanzi(models.Model): 
     Hanzi = models.CharField(max_length=1,null=False)
     Bopomofo = models.CharField(max_length=25,null=False)
@@ -111,6 +111,106 @@ class ThirdgradeF_LessonTwelveHanzi(models.Model):
         return self.Hanzi  
 
 
+""" 筆順練習三下第一課 second semester下學期表示S """
+class ThirdgradeS_LessonOneHanzi(models.Model): 
+    Hanzi = models.CharField(max_length=1,null=False)
+    Bopomofo = models.CharField(max_length=25,null=False)
+    Radical = models.CharField(max_length=1,null=True,blank=True)
+    R_Bopomofo= models.CharField(max_length=10,null=True,blank=True)    
+    Total_strokes = models.IntegerField(null=False)
+    def __str__(self):
+        return self.Hanzi
+class ThirdgradeS_LessonTwoHanzi(models.Model):
+    Hanzi = models.CharField(max_length=1,null=False)
+    Bopomofo = models.CharField(max_length=25,null=False)
+    Radical = models.CharField(max_length=1,null=True,blank=True)
+    R_Bopomofo= models.CharField(max_length=10,null=True,blank=True)    
+    Total_strokes = models.IntegerField(null=False)
+    def __str__(self):
+        return self.Hanzi 
+class ThirdgradeS_LessonThreeHanzi(models.Model):
+    Hanzi = models.CharField(max_length=1,null=False)
+    Bopomofo = models.CharField(max_length=25,null=False)
+    Radical = models.CharField(max_length=1,null=True,blank=True)
+    R_Bopomofo= models.CharField(max_length=10,null=True,blank=True)    
+    Total_strokes = models.IntegerField(null=False)
+    def __str__(self):
+        return self.Hanzi
+class ThirdgradeS_LessonFourHanzi(models.Model):
+    Hanzi = models.CharField(max_length=1,null=False)
+    Bopomofo = models.CharField(max_length=25,null=False)
+    Radical = models.CharField(max_length=1,null=True,blank=True)
+    R_Bopomofo= models.CharField(max_length=10,null=True,blank=True)    
+    Total_strokes = models.IntegerField(null=False)
+    def __str__(self):
+        return self.Hanzi
+""" 三下第五課 """
+class ThirdgradeS_LessonFiveHanzi(models.Model):
+    Hanzi = models.CharField(max_length=1,null=False)
+    Bopomofo = models.CharField(max_length=25,null=False)
+    Radical = models.CharField(max_length=1,null=True,blank=True)
+    R_Bopomofo= models.CharField(max_length=10,null=True,blank=True)    
+    Total_strokes = models.IntegerField(null=False)
+    def __str__(self):
+        return self.Hanzi
+class ThirdgradeS_LessonSixHanzi(models.Model):
+    Hanzi = models.CharField(max_length=1,null=False)
+    Bopomofo = models.CharField(max_length=25,null=False)
+    Radical = models.CharField(max_length=1,null=True,blank=True)
+    R_Bopomofo= models.CharField(max_length=10,null=True,blank=True)    
+    Total_strokes = models.IntegerField(null=False)
+    def __str__(self):
+        return self.Hanzi 
+class ThirdgradeS_LessonSevenHanzi(models.Model):
+    Hanzi = models.CharField(max_length=1,null=False)
+    Bopomofo = models.CharField(max_length=25,null=False)
+    Radical = models.CharField(max_length=1,null=True,blank=True)
+    R_Bopomofo= models.CharField(max_length=10,null=True,blank=True)    
+    Total_strokes = models.IntegerField(null=False)
+    def __str__(self):
+        return self.Hanzi 
+class ThirdgradeS_LessonEightHanzi(models.Model):
+    Hanzi = models.CharField(max_length=1,null=False)
+    Bopomofo = models.CharField(max_length=25,null=False)
+    Radical = models.CharField(max_length=1,null=True,blank=True)
+    R_Bopomofo= models.CharField(max_length=10,null=True,blank=True)    
+    Total_strokes = models.IntegerField(null=False)
+    def __str__(self):
+        return self.Hanzi 
+class ThirdgradeS_LessonNineHanzi(models.Model):
+    Hanzi = models.CharField(max_length=1,null=False)
+    Bopomofo = models.CharField(max_length=25,null=False)
+    Radical = models.CharField(max_length=1,null=True,blank=True)
+    R_Bopomofo= models.CharField(max_length=10,null=True,blank=True)    
+    Total_strokes = models.IntegerField(null=False)
+    def __str__(self):
+        return self.Hanzi
+""" 三下第十課 """
+class ThirdgradeS_LessonTenHanzi(models.Model):
+    Hanzi = models.CharField(max_length=1,null=False)
+    Bopomofo = models.CharField(max_length=25,null=False)
+    Radical = models.CharField(max_length=1,null=True,blank=True)
+    R_Bopomofo= models.CharField(max_length=10,null=True,blank=True)    
+    Total_strokes = models.IntegerField(null=False)
+    def __str__(self):
+        return self.Hanzi  
+class ThirdgradeS_LessonElevenHanzi(models.Model):
+    Hanzi = models.CharField(max_length=1,null=False)
+    Bopomofo = models.CharField(max_length=25,null=False)
+    Radical = models.CharField(max_length=1,null=True,blank=True)
+    R_Bopomofo= models.CharField(max_length=10,null=True,blank=True)    
+    Total_strokes = models.IntegerField(null=False)
+    def __str__(self):
+        return self.Hanzi
+""" 三下第十二課 """  
+class ThirdgradeS_LessonTwelveHanzi(models.Model):
+    Hanzi = models.CharField(max_length=1,null=False)
+    Bopomofo = models.CharField(max_length=25,null=False)
+    Radical = models.CharField(max_length=1,null=True,blank=True)
+    R_Bopomofo= models.CharField(max_length=10,null=True,blank=True)    
+    Total_strokes = models.IntegerField(null=False)
+    def __str__(self):
+        return self.Hanzi  
 
 
 
