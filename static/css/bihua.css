@@ -1,51 +1,58 @@
-
-
-html{
+html {
   height: 100%;
 }
-body{
+
+body {
   background-color: #fcf1eb;
   display: grid;
   grid-template-rows: 1fr auto;
 }
-.footer{
+
+.footer {
   grid-row-start: 2;
   grid-row-end: 3;
   margin: 0;
   padding-left: 12px;
   padding-right: 12px;
 }
+
 .sc {
   overflow-y: scroll;
 }
+
 .sc::-webkit-scrollbar {
-    width: 6px;
-  }
+  width: 6px;
+}
 
 .sc::-webkit-scrollbar-thumb {
-    border-radius: 4px;
-    background-color: #ECE1DB;
-    border: 1px solid #9E8580;
-  }
+  border-radius: 4px;
+  background-color: #ECE1DB;
+  border: 1px solid #9E8580;
+}
+
 .sc::-webkit-scrollbar-track {
-    box-shadow: transparent;
-  }
+  box-shadow: transparent;
+}
+
 .bi {
   vertical-align: -.125em;
   color: #9E8580;
 }
-.navhover:hover{
+
+.navhover:hover {
   background-color: #b29892;
   border-radius: 5px;
 }
-.nav.nav-tabs{
-  border:none ;
+
+.nav.nav-tabs {
+  border: none;
   flex-wrap: nowrap;
 }
-.nav.nav-tabs .nav-item .nav-link{
+
+.nav.nav-tabs .nav-item .nav-link {
   font-weight: bold;
   font-size: 18px;
-  background-color:#9FBBC9;
+  background-color: #9FBBC9;
   color: #FCF1EB;
   border: none;
   padding-left: 5px;
@@ -55,23 +62,27 @@ body{
   margin-right: 10px;
   flex-wrap: nowrap;
 }
-.nav.nav-tabs .nav-item .nav-link.active{
+
+.nav.nav-tabs .nav-item .nav-link.active {
   background-color: #A6513D;
   border: none;
   font-weight: bold;
   color: #FCF1EB;
 }
-.nav.nav-tabs .nav-item .nav-link:hover{
+
+.nav.nav-tabs .nav-item .nav-link:hover {
   border: none;
   background-color: #868E76;
 }
-.col.d-block.d-xl-none .nav.nav-tabs{
+
+.col.d-block.d-xl-none .nav.nav-tabs {
   flex-wrap: nowrap;
 }
-.col.d-block.d-xl-none .nav.nav-tabs .nav-item .nav-link{
+
+.col.d-block.d-xl-none .nav.nav-tabs .nav-item .nav-link {
   font-weight: bold;
   font-size: medium;
-  background-color:#FCF1EB;
+  background-color: #FCF1EB;
   color: #9E8580;
   border: none;
   padding-left: 5px;
@@ -80,104 +91,132 @@ body{
   padding-bottom: 0px;
   margin-right: 10px;
 }
-.col.d-block.d-xl-none .nav.nav-tabs .nav-item .nav-link.active{
+
+.col.d-block.d-xl-none .nav.nav-tabs .nav-item .nav-link.active {
   background-color: #9E8580;
   border: none;
   font-weight: bold;
   color: #FCF1EB;
 }
-.col.d-block.d-xl-none .nav.nav-tabs .nav-item .nav-link:hover{
+
+.col.d-block.d-xl-none .nav.nav-tabs .nav-item .nav-link:hover {
   border: none;
   background-color: #9E8580;
   color: #FCF1EB;
 }
-.form-range{
+
+.form-range {
   width: 240px;
   margin: 0px;
-  
+
 }
-.form-range::-webkit-slider-runnable-track{
+
+.form-range::-webkit-slider-runnable-track {
   background-color: #ECE1DB;
 }
-.form-range::-webkit-slider-thumb{
+
+.form-range::-webkit-slider-thumb {
   background-color: #9E8580;
   outline: none;
 }
-.form-range:active::-webkit-slider-thumb{
+
+.form-range:active::-webkit-slider-thumb {
   border: none;
   background-color: #9E8580;
 }
+
 .row {
-  margin-left:0;
+  margin-left: 0;
 }
-#allcontent{
+
+#allcontent {
   padding-right: 10px;
   padding-right: 100px;
 }
-.modal-body .row{
+
+.modal-body .row {
   margin-bottom: 20px;
 }
-.tbody, td, tfoot, th{  /*部首筆畫大小*/
+
+.tbody,
+td,
+tfoot,
+th {
+  /*部首筆畫大小*/
   font-size: 20.5px;
 }
-#menu{
+
+#menu {
   margin-right: 20px;
   padding: 0%;
 }
-#practice{    
+
+#practice {
   background-color: #ECE1DB;
   border-style: solid;
-  border-color:#ECE1DB;
+  border-color: #ECE1DB;
   border-radius: 10px;
   padding: 5px;
-  height: 94vh;           /*game區塊高度*/
+  height: 94vh;
+  /*game區塊高度*/
 }
-#savechange{
+
+#savechange {
   background-color: #9E8580;
   color: #FCF1EB;
   border-color: #9E8580;
   font-weight: bold;
 }
-#savechange:hover{
+
+#savechange:hover {
   background-color: #b29892;
   border-color: #b29892;
 }
-.form-label{
+
+.form-label {
   font-weight: bold;
 }
-#alltxt::-webkit-scrollbar{
-  display: none;
-}
-#strokeorder::-webkit-scrollbar{
+
+#alltxt::-webkit-scrollbar {
   display: none;
 }
 
-#docs-target-HintAllstroke{
-  text-align: center; /* 容器裡面置中 */
+#strokeorder::-webkit-scrollbar {
+  display: none;
 }
 
-#AllHanzi-container{
-  text-align: center;/* 容器裡面置中 */
+#docs-target-HintAllstroke {
+  text-align: center;
+  /* 容器裡面置中 */
+}
+
+#AllHanzi-container {
+  text-align: center;
+  /* 容器裡面置中 */
 }
 
 /* AllHanzi-container 的svg背景 */
-.HanziSvg{
+.HanziSvg {
   background-image: url('../img/hanzibg.svg');
   background-color: #fff;
-  
+
 }
-svg #HanziSvg_0{
+
+svg #HanziSvg_0 {
   border: '1px solid red';
 }
+
 /* 漢字筆順順序區塊 的svg背景 */
-.docshanzi_Svg{
+.docshanzi_Svg {
   background-image: url('../img/hanzibg.svg');
   background-color: #fff;
 }
-#target{
+
+#target {
   background-image: url('../img/hanzibg.svg');
   background-position: center;
 }
+
 #loader {
   position: absolute;
   left: 50%;
@@ -185,29 +224,147 @@ svg #HanziSvg_0{
   z-index: 1;
   width: 150px;
   height: 150px;
-  margin: -75px 0 0 -75px;  
+  margin: -75px 0 0 -75px;
 }
-#canvas{
-  width:"800px"; 
-  height:"500px";
+
+#canvas {
+  width: "800px";
+  height: "500px";
   background-image: url('../img/hanzibg.svg');
   background-position: center;
-  
+
+}
+/* 修改download顏色 */
+#downloadBtn{
+  border-radius: 5px;
+  border-width: 2px;
+  border-color: #59666F;
+  background-color: #9FBBC9;
+  color: #59666F;
+  font-size: large;
+  font-weight: bold;
+}
+#downloadBtn:hover {
+  background-color: #bed9e6;
 }
 
-/* #divcanvas{
+#undoBtn {
+  border-radius: 5px;
+  border-width: 2px;
+  border-color: #59666F;
+  background-color: #9FBBC9;
+  color: #59666F;
+  font-size: large;
+  font-weight: bold;
+}
 
-} */
+#undoBtn:hover {
+  background-color: #bed9e6;
+}
+
+#redoBtn {
+  border-radius: 5px;
+  border-width: 2px;
+  border-color: #59666F;
+  background-color: #9FBBC9;
+  color: #59666F;
+  font-size: large;
+  font-weight: bold;
+}
+
+#redoBtn:hover {
+  background-color: #bed9e6;
+}
+
+#clearBtn {
+  border-radius: 5px;
+  border-width: 2px;
+  border-color: #A6513D;
+  background-color: #F3B7B7;
+  color: #A6513D;
+  font-size: large;
+  font-weight: bold;
+}
+
+#clearBtn:hover {
+  background-color: #ffd2d2;
+}
+
+#speak {
+  background-color: #D3D6C5;
+  border-style: solid;
+  border-color: #868E76;
+  border-radius: 10px;
+  border-width: 2.5px;
+  width: 100%;
+  height: 100%;
+}
+
+#speak:hover {
+  background-color: #e7eadb;
+}
+
+#backBtn {
+  background-color: #9FBBC9;
+  border-style: solid;
+  border-color: #59666F;
+  border-radius: 10px;
+  border-width: 2.5px;
+  width: 100%;
+  height: 100%;
+}
+
+#backBtn:hover {
+  background-color: #bed9e6;
+}
+
+#nextBtn {
+  background-color: #9FBBC9;
+  border-style: solid;
+  border-color: #59666F;
+  border-radius: 10px;
+  border-width: 2.5px;
+  width: 100%;
+  height: 100%;
+}
+
+#nextBtn:hover {
+  background-color: #bed9e6;
+}
+
+#selWidth {
+  border-radius: 3px;
+}
+
+#selColor {
+  border-radius: 3px;
+}
+
+.modal-footer {
+  font-size: large;
+  font-weight: bold;
+}
+
 
 
 @-webkit-keyframes spin {
-  0% { -webkit-transform: rotate(0deg); }
-  100% { -webkit-transform: rotate(360deg); }
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 /* Add animation to "page content" */
@@ -220,13 +377,27 @@ svg #HanziSvg_0{
 }
 
 @-webkit-keyframes animatebottom {
-  from { bottom:-100px; opacity:0 } 
-  to { bottom:0px; opacity:1 }
+  from {
+    bottom: -100px;
+    opacity: 0
+  }
+
+  to {
+    bottom: 0px;
+    opacity: 1
+  }
 }
 
-@keyframes animatebottom { 
-  from{ bottom:-100px; opacity:0 } 
-  to{ bottom:0; opacity:1 }
+@keyframes animatebottom {
+  from {
+    bottom: -100px;
+    opacity: 0
+  }
+
+  to {
+    bottom: 0;
+    opacity: 1
+  }
 }
 
 #myDiv {
@@ -272,7 +443,7 @@ svg #HanziSvg_0{
 
 .pencil__eraser {
   animation-name: pencilEraser;
-  transform: rotate(-90deg) translate(49px,0);
+  transform: rotate(-90deg) translate(49px, 0);
 }
 
 .pencil__eraser-skew {
@@ -282,7 +453,7 @@ svg #HanziSvg_0{
 
 .pencil__point {
   animation-name: pencilPoint;
-  transform: rotate(-90deg) translate(49px,-30px);
+  transform: rotate(-90deg) translate(49px, -30px);
 }
 
 .pencil__rotate {
@@ -291,27 +462,29 @@ svg #HanziSvg_0{
 
 .pencil__stroke {
   animation-name: pencilStroke;
-  transform: translate(100px,100px) rotate(-113deg);
+  transform: translate(100px, 100px) rotate(-113deg);
 }
 
 /* Animations */
 @keyframes pencilBody1 {
+
   from,
-	to {
+  to {
     stroke-dashoffset: 351.86;
     transform: rotate(-90deg);
   }
 
   50% {
     stroke-dashoffset: 150.8;
- /* 3/8 of diameter */
+    /* 3/8 of diameter */
     transform: rotate(-225deg);
   }
 }
 
 @keyframes pencilBody2 {
+
   from,
-	to {
+  to {
     stroke-dashoffset: 406.84;
     transform: rotate(-90deg);
   }
@@ -323,8 +496,9 @@ svg #HanziSvg_0{
 }
 
 @keyframes pencilBody3 {
+
   from,
-	to {
+  to {
     stroke-dashoffset: 296.88;
     transform: rotate(-90deg);
   }
@@ -336,86 +510,88 @@ svg #HanziSvg_0{
 }
 
 @keyframes pencilEraser {
+
   from,
-	to {
-    transform: rotate(-45deg) translate(49px,0);
+  to {
+    transform: rotate(-45deg) translate(49px, 0);
   }
 
   50% {
-    transform: rotate(0deg) translate(49px,0);
+    transform: rotate(0deg) translate(49px, 0);
   }
 }
 
 @keyframes pencilEraserSkew {
+
   from,
-	32.5%,
-	67.5%,
-	to {
+  32.5%,
+  67.5%,
+  to {
     transform: skewX(0);
   }
 
   35%,
-	65% {
+  65% {
     transform: skewX(-4deg);
   }
 
-  37.5%, 
-	62.5% {
+  37.5%,
+  62.5% {
     transform: skewX(8deg);
   }
 
   40%,
-	45%,
-	50%,
-	55%,
-	60% {
+  45%,
+  50%,
+  55%,
+  60% {
     transform: skewX(-15deg);
   }
 
   42.5%,
-	47.5%,
-	52.5%,
-	57.5% {
+  47.5%,
+  52.5%,
+  57.5% {
     transform: skewX(15deg);
   }
 }
 
 @keyframes pencilPoint {
+
   from,
-	to {
-    transform: rotate(-90deg) translate(49px,-30px);
+  to {
+    transform: rotate(-90deg) translate(49px, -30px);
   }
 
   50% {
-    transform: rotate(-225deg) translate(49px,-30px);
+    transform: rotate(-225deg) translate(49px, -30px);
   }
 }
 
 @keyframes pencilRotate {
   from {
-    transform: translate(100px,100px) rotate(0);
+    transform: translate(100px, 100px) rotate(0);
   }
 
   to {
-    transform: translate(100px,100px) rotate(720deg);
+    transform: translate(100px, 100px) rotate(720deg);
   }
 }
 
 @keyframes pencilStroke {
   from {
     stroke-dashoffset: 439.82;
-    transform: translate(100px,100px) rotate(-113deg);
+    transform: translate(100px, 100px) rotate(-113deg);
   }
 
   50% {
     stroke-dashoffset: 164.93;
-    transform: translate(100px,100px) rotate(-113deg);
+    transform: translate(100px, 100px) rotate(-113deg);
   }
 
   75%,
-	to {
+  to {
     stroke-dashoffset: 439.82;
-    transform: translate(100px,100px) rotate(112deg);
+    transform: translate(100px, 100px) rotate(112deg);
   }
 }
-

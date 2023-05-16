@@ -6,8 +6,10 @@
     <title>bihua</title>
     {%load static%}
     <!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script> -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    {% comment %} <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"> {% endcomment %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    {% comment %} <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> {% endcomment %}
     <script src="{% static 'js/bihua.js' %}"></script> <!-- script檔案 -->
     <script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.5/dist/hanzi-writer.min.js"></script><!-- Hanzi API -->
     <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script><!-- jquery -->
@@ -50,10 +52,11 @@
         </g>
       </svg>
     </div>
+
     <div style="display:none;" id="myDiv" class="animate-bottom">
       <nav class="navbar sticky-top navbar-expand-lg mb-2" style="width: 100%; background-color: rgb(158, 133, 128); padding: y 1px;">  <!--logo and menu sticky-top-->
         <div class="container-fluid">
-          <img src="{% static "img/相輔相程.png" %}" alt="logo" width="120" >  <!--logoimg-->
+          <a href="/index"><img src="{% static "img/相輔相程.png" %}" alt="logo" width="120"></a>  <!--logoimg-->  <!--here-->
           <ul class="nav">
             <li class="navhover"><a href="/index" target="_self" class="nav-link text-white "><b>Home</b></a></li>
           <li class="navhover"><a href="#" class="nav-link text-white"><b>聊天機器人</b></a></li>
@@ -183,8 +186,8 @@
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body" >
-                      <div id="divcanvas">
-                        <canvas id="canvas"  width="750px" height="500px" class="border" ></canvas> <!-- 高度可調整 -->
+                      <div id="divcanvas" >
+                        <canvas id="canvas"  width="750px" height="500px" class="border border-success" ></canvas> <!-- 高度可調整 -->
                       </div>
                     </div>
                     <div class="modal-footer">
@@ -197,9 +200,10 @@
                           <option value="black" selected="selected">黑色</option>
                           <option value="green">綠色</option>
                       </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                      <button type="button" class="btn btn-primary" onclick="cUndo();" data-bs-toggle="tooltip" data-bs-placement="top" title="提示:按下此按鈕將會回復上一個筆畫">上一步</button>
-                      <button type="button" class="btn btn-primary" onclick="cRedo();"data-bs-toggle="tooltip" data-bs-placement="top" title="提示:按下此按鈕將會回復下一個筆畫">下一步</button>
-                      <button type="button" class="btn btn-danger" onclick="drawImage();"data-bs-toggle="tooltip" data-bs-placement="right" title="提示:按下此按鈕將清除所有筆畫">清除</button>
+                      <button type="button" class="btn btn-success" id="downloadBtn" onclick="download('#canvas')" data-bs-toggle="tooltip" data-bs-placement="top" title="提示:將畫好的圖片存下來">下載圖片</button>
+                      <button type="button" class="btn btn-primary" id="undoBtn" onclick="cUndo();" data-bs-toggle="tooltip" data-bs-placement="top" title="提示:回復上一個筆畫">上一筆</button>
+                      <button type="button" class="btn btn-primary" id="redoBtn" onclick="cRedo();"data-bs-toggle="tooltip" data-bs-placement="top" title="提示:回復下一個筆畫">下一筆</button>
+                      <button type="button" class="btn btn-danger" id="clearBtn" onclick="confirmClear();"data-bs-toggle="tooltip" data-bs-placement="right" title="提示:清除所有筆畫" >清除畫布</button>
                       <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
                     </div>
                   </div>
@@ -233,15 +237,15 @@
                 </div>
                 <!--語音按鈕-->  
                 <div class="col" style="margin-right: 10px; padding: 0%;">
-                  <button  id="speak" class="speak" type="button" style="background-color: #D3D6C5; border-style: solid; border-color:#868E76; border-radius: 10px; width: 100%; height: 100%;"><img src="../../../static/img/sound.png"></button>                 <!--語音-->
+                  <button  id="speak" class="speak" type="button" ><img src="{% static "img/speaker.png" %}"></button><!--語音-->
                 </div>
                 <!-- 放置上一個按鈕 -->
                 <div id="PreviousHanzi" class="col" style="margin-right: 10px; padding: 0%; " onclick="Previoushanzi(this);">
-                  <button type="button" style="background-color: #9FBBC9;  border-style: solid; border-color:#59666F; border-radius: 10px; width: 100%; height: 100%;"><img src="../../../static/img/back1.png"></button> <!--left button-->
+                  <button type="button" id="backBtn" ><img src="{% static "img/back1.png" %}"></button> <!--left button-->
                 </div>
                 <!-- 放置下一個按鈕 -->
                 <div id="NextHanzi" class="col" style="padding: 0%;"onclick="Nexthanzi(this);">
-                  <button type="button" style="background-color: #9FBBC9;  border-style: solid; border-color:#59666F; border-radius: 10px; width: 100%; height: 100%;"><img src="../../../static/img/next1.png"></button> <!--right button-->
+                  <button type="button" id="nextBtn" ><img src="{% static "img/next1.png" %}"></button> <!--right button-->
                 </div>
               </div>
               
@@ -250,7 +254,20 @@
       
           
         </div>
-        <footer class="container-fluid d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top" style="margin: 0px;"> <!--footer-->
+
+        <aside>
+            {% comment %} 筆順練習Toasts {% endcomment %}
+            <div class="toast-container top-0 end-0 p-4">         
+              <div class="toast text-bg-success border-0 " id="EpicToast" role="alert" aria-live="assertive" aria-atomic="true" >       
+                  <div class="toast-body">
+                      可以開始筆順練習囉! 加油!
+                  </div>
+              </div>
+            </div>
+        </aside>
+
+        <!--footer-->
+        <footer class="container-fluid d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top" style="margin: 0px;"> 
           <div class="col-md-4 d-flex align-items-center">
             
             <span class="mb-3 mb-md-0 text-body-secondary">&copy; 2023 Company, Inc</span>
@@ -279,15 +296,15 @@
             <p>No HanziCourse available.</p>
           {% endif %} {% endcomment %}
         </footer>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
         <script>
+          
           var CourseHanziArray_D = {{ CourseHanziArray_D|safe }}; {% comment %} 要先從此處接收django傳來的值，才能將值送往bihua.js {% endcomment %}
-          var data = JSON.parse('{{ json_data|escapejs }}');
-          // 現在你可以在 JavaScript 中使用 data 物件的屬性了
-          console.log(data);
+          var hanziDataJs = JSON.parse('{{ json_data|escapejs }}');// 取得由 Django 傳遞的 JSON 字串，並解析 JSON 字串為 JavaScript 物件。
+          //console.log(data);
           
         </script>
     <div>
       
   </body>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </html>

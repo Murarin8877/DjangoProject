@@ -17,7 +17,7 @@ var VardrawingWidth //設定畫筆大小
 //請勿動 筆順練習時需要以下數值來讀取繪畫筆畫位置 。
 function printStrokePoints(data) {
   var pointStrs = data.drawnPath.points.map((point) => `{x: ${point.x}, y: ${point.y}}`);
-  console.log(`[${pointStrs.join(', ')}]`);
+  /* console.log(`[${pointStrs.join(', ')}]`); */
 }
 
 window.onload = function () {
@@ -55,42 +55,63 @@ window.onload = function () {
       CanvasHanziBg(AllHanzi[Hanzi_index]);
     });
     
-    //按下測驗按鈕
+    //按下筆順練習按鈕
     document.querySelector('#generally').addEventListener('click', function () {
-    /* VarshowHintAfterMisses = document.querySelector('[name="HintAfterMisses"]').value; //錯誤提示
-    VardrawingWidth = document.querySelector('[name="drawingWidth"]').value //筆畫粗細 */
+    Toasty( );//跳出Toasts
     updateCharacter();
-    /* HiddenCanvas(); */
     let i=1;
+    var CompleteMsg='';//筆順練習完成提示訊息
+    
     var opts = {
-      
       onMistake: function(strokeData) {
-        consoleLog('目前第'+  (strokeData.strokeNum+i) +'筆畫錯誤。');
-        consoleLog("你在這個筆劃上犯了 " + strokeData.mistakesOnStroke + " 個錯誤!");
-        consoleLog("目前總共錯誤 " + strokeData.totalMistakes + " 次。");
-        consoleLog("距離完成還有" + strokeData.strokesRemaining + "個筆畫。");
-        consoleLog("");
+        console.log('目前第'+  (strokeData.strokeNum+i) +'筆畫錯誤。');
+        console.log("你在這個筆劃上犯了 " + strokeData.mistakesOnStroke + " 個錯誤!");
+        console.log("目前總共錯誤 " + strokeData.totalMistakes + " 次。");
+        console.log("距離完成還有" + strokeData.strokesRemaining + "個筆畫。");
+        console.log("");
       },
       onCorrectStroke: function(strokeData) {
-        consoleLog('很好! 你畫的第' + (strokeData.strokeNum+i) + '筆畫是正確的!');
-        consoleLog("你在這個筆劃上犯了 " + strokeData.mistakesOnStroke + " 個錯誤!");
-        consoleLog("目前總共錯誤 " + strokeData.totalMistakes+ " 次。");
-        consoleLog("距離完成還有" + strokeData.strokesRemaining + "個筆畫。");
-        consoleLog("");
+        console.log('很好! 你畫的第' + (strokeData.strokeNum+i) + '筆畫是正確的!');
+        console.log("你在這個筆劃上犯了 " + strokeData.mistakesOnStroke + " 個錯誤!");
+        console.log("目前總共錯誤 " + strokeData.totalMistakes+ " 次。");
+        console.log("距離完成還有" + strokeData.strokesRemaining + "個筆畫。");
+        console.log("");
       },
       onComplete: function(summaryData) {
-        consoleLog('Ya~你完成了! 你畫完' + summaryData.character +"這個字了");
-        consoleLog("總共錯誤 " + summaryData.totalMistakes + " 次。");
-        consoleLog("");
+        CompleteMsg = 'Ya~你完成了! 你畫完' + summaryData.character +"這個字了";
+        document.querySelector('.toast-body').innerHTML=CompleteMsg;
+        console.log('Ya~你完成了! 你畫完' + summaryData.character +"這個字了");
+        console.log("總共錯誤 " + summaryData.totalMistakes + " 次。");
+        console.log("");
       }
     }
-    writer.quiz();
+    writer.quiz(opts);
   });
   screenWidth = window.innerWidth; //螢幕寬度
   screenHeight = window.innerHeight; //螢幕高度
   svgWidth = screenHeight * 0.12; //設置課程的所有漢字SVG高度為螢幕寬度的16%
   svgHeight = screenHeight * 0.12;//設置課程的所有漢字SVG高度為螢幕高度的16%
+
+  
+  
 };
+//按下筆順練習 需要跳出Toasts
+var option = 
+{
+    animation : true,
+    delay : 2000
+};
+function Toasty( )
+  {
+      var toastHTMLElement = document.getElementById( 'EpicToast' );
+      
+      var toastElement = new bootstrap.Toast( toastHTMLElement, option );
+      
+      toastElement.show( );
+  }
+
+
+
 
 
 //漢字筆順順序區塊(某個漢字的全筆順)
@@ -401,20 +422,21 @@ function getData()
   var a = AllHanzi[Hanzi_index];
   /* var xhr = new XMLHttpRequest();
   let s = "https://www.moedict.tw/raw/" + a */
-  var hanziDataArray = [[data[Hanzi_index].fields.Hanzi],[data[Hanzi_index].fields.Bopomofo],[data[Hanzi_index].fields.Radical],[data[Hanzi_index].fields.Total_strokes]]; //漢字 注音 部首 總筆畫
+  var hanziDataArray = [[hanziDataJs[Hanzi_index].fields.Hanzi],[hanziDataJs[Hanzi_index].fields.Bopomofo],
+  [hanziDataJs[Hanzi_index].fields.Radical],[hanziDataJs[Hanzi_index].fields.Total_strokes]]; //漢字 注音 部首 總筆畫
 
   var hanziB_lastCharacter = hanziDataArray[1][0].charAt(hanziDataArray[1][0].length - 1); //判斷注音聲調 是否為第一聲 ，不判斷第一聲會省略不念
   let t='';
   if(hanziB_lastCharacter == '¯')
   {
-    t='第一聲';
+    t='第一聲'+hanziDataArray[0];
   }
   else{
     t=hanziDataArray[0];
   }
   //console.log(hanziB_lastCharacter); ¯
 
-  var msgData = hanziDataArray[0] + ", 部首:" + hanziDataArray[2] + "部, 注音:" +  hanziDataArray[1]+ ","+ t + "總筆畫:"  +hanziDataArray[3] + "畫, "
+  var msgData = hanziDataArray[0] + "," + hanziDataArray[2] + "部, 注音:" +  hanziDataArray[1]+ ",,,"+ t + "共"  +hanziDataArray[3] + "畫, "
   msg.text = msgData; //播報要說的文字
   /* console.log(Hanzi_docs) */
   text2 = "<table> <tr>";
@@ -481,18 +503,17 @@ function getData()
   xhr.send(); */
 }
 
-function get_Hanzidocs(){
+/* function get_Hanzidocs(){
   
   console.log(data[Hanzi_index].fields.Hanzi) ;
   console.log(data[Hanzi_index].fields.Bopomofo);
   console.log(data[Hanzi_index].fields.Radical);
   console.log(data[Hanzi_index].fields.Total_strokes);
-  /* console.log(Hanzi_docs[0]); */
 
-}
-
+} */
 
 
+//進階練習用
 var mousePressed = false;
 var lastX, lastY;
 var ctx;
@@ -526,9 +547,10 @@ function InitThis() {
   drawImage();
 }
 
-
+//透過圖片的方式來存儲筆畫
 function drawImage() {
   CanvasHanziBg(AllHanzi[Hanzi_index]);
+
   /* var canvasBg = document.getElementById('canvas');
   var dataURL = canvasBg.toDataURL();
   var img = new Image();
@@ -536,6 +558,19 @@ function drawImage() {
   img.onload = function() {
     ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
   }; */
+}
+
+//清除畫布按鈕
+function confirmClear() {
+  var confirmation = confirm("確定要清除所有筆畫嗎？");
+
+  if (confirmation) {
+    // 使用者選擇了確定清除
+    drawImage();
+  } else {
+    // 使用者選擇了取消
+    // 可選擇執行其他操作或不執行任何操作
+  }
 }
 
 
@@ -573,16 +608,11 @@ function Draw(x, y, isDown) {
     lastY = y;
 }
 	
-/* function clearArea() {
-  canvas.width = canvas.width;
-  canvas.height = canvas.height;
-
-} */
 
 var cPushArray = new Array();
 var cStep = -1;
-// ctx = document.getElementById('myCanvas').getContext("2d");
-     
+
+//將目前所畫的筆劃存入array
 function cPush() {
 /*   console.log("11");
  */    cStep++;
@@ -591,7 +621,7 @@ function cPush() {
 /*     document.title = cStep + ":" + cPushArray.length;
  */
 }
-//上一步        
+//上一個筆畫        
 function cUndo() {
 /*   console.log("22");
  */  if (cStep > 0) {
@@ -603,7 +633,7 @@ function cUndo() {
  */
   }
 }     
-//往後一步
+//下一個筆畫  
 function cRedo() {
 /*   console.log("33");
  */  if (cStep < cPushArray.length-1) {
@@ -614,5 +644,23 @@ function cRedo() {
 /*       document.title = cStep + ":" + cPushArray.length;
  */
     }
-}                
+}
 
+//下載圖片至桌面
+function download(selector) {
+  const canvas = document.querySelector(selector);
+  
+  // 将画布转换为数据 URL 并创建图像元素
+  const dataURL = canvas.toDataURL('img/123.svg');
+  const img = new Image();
+  img.src =  dataURL;
+  
+  // 创建链接并下载
+  const link = document.createElement('a');
+  link.download = '您的姓名_'+AllHanzi[Hanzi_index];
+  link.href =  dataURL;
+  link.click();
+  drawImage();
+  /* CanvasHanziBg(AllHanzi[Hanzi_index]);
+  ctx.putImageData(0, 0, 0); */
+}
