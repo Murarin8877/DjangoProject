@@ -10,6 +10,13 @@ class testAdmin(admin.ModelAdmin):
     list_filter=('cSex',)
     search_fields=('Hanzi',) 
 admin.site.register(models.test,testAdmin)
+
+class Thirdgrade_CourseHanziAdmin(admin.ModelAdmin):
+    list_display = ['id','Hanzi','Bopomofo','Radical','R_Bopomofo','Total_strokes','cGrade','cSemester','cLesson']
+    search_fields=('Hanzi',) 
+admin.site.register(models.Thirdgrade_CourseHanzi,Thirdgrade_CourseHanziAdmin)
+
+
 """ first semester上學期 F表示 跟second semester下學期表示S """
 """ 筆順練習三上第一課 """
 class ThirdgradeF_LessonOneHanziAdmin(admin.ModelAdmin):

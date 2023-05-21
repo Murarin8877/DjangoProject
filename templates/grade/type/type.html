@@ -98,18 +98,32 @@
                   生字筆順練習
                 </button>
                 <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" id="Grade3F_L1" onclick="goToHanziWriterPage(1)">第一課 心的悄悄話</a></li>
-                  <li><a class="dropdown-item" id="Grade3F_L2" onclick="goToHanziWriterPage(2)">第二課 妙故事點點名</a></li>
-                  <li><a class="dropdown-item" id="Grade3F_L3" onclick="goToHanziWriterPage(3)">第三課 繞口令村</a></li>
-                  <li><a class="dropdown-item" id="Grade3F_L4" onclick="goToHanziWriterPage(4)">第四課 有你陪伴</a></li>
-                  <li><a class="dropdown-item" id="Grade3F_L5" onclick="goToHanziWriterPage(5)">第五課 小丑魚和海葵</a></li>
-                  <li><a class="dropdown-item" id="Grade3F_L6" onclick="goToHanziWriterPage(6)">第六課 小女生</a></li>
-                  <li><a class="dropdown-item" id="Grade3F_L7" onclick="goToHanziWriterPage(7)">第七課 淡水小鎮</a></li>
-                  <li><a class="dropdown-item" id="Grade3F_L8" onclick="goToHanziWriterPage(8)">第八課 安平古堡參觀記</a></li>
-                  <li><a class="dropdown-item" id="Grade3F_L9" onclick="goToHanziWriterPage(9)">第九課 馬太鞍的巴拉告</a></li>
-                  <li><a class="dropdown-item" id="Grade3F_L10" onclick="goToHanziWriterPage(10)">第十課 狐狸的故事</a></li>
-                  <li><a class="dropdown-item" id="Grade3F_L11" onclick="goToHanziWriterPage(11)">第十一課 巨人的花園</a></li>
-                  <li><a class="dropdown-item" id="Grade3F_L12" onclick="goToHanziWriterPage(12)">第十二課 奇特的朋友</a></li>
+                  <h5 style="margin-left:10px ;margin-top:5px"><b>上學期</b></h5>
+                  <li><a class="dropdown-item" id="Grade3F_L1" href={% url 'bihua' Semester='first' Lesson='1' %} >第一課 心的悄悄話</a></li>
+                  <li><a class="dropdown-item" id="Grade3F_L2" href={% url 'bihua' Semester='first' Lesson='2' %}>第二課 妙故事點點名</a></li>
+                  <li><a class="dropdown-item" id="Grade3F_L3" href={% url 'bihua' Semester='first' Lesson='3' %}>第三課 繞口令村</a></li>
+                  <li><a class="dropdown-item" id="Grade3F_L4" href={% url 'bihua' Semester='first' Lesson='4' %}>第四課 有你陪伴</a></li>
+                  <li><a class="dropdown-item" id="Grade3F_L5" href={% url 'bihua' Semester='first' Lesson='5' %}>第五課 小丑魚和海葵</a></li>
+                  <li><a class="dropdown-item" id="Grade3F_L6" href={% url 'bihua' Semester='first' Lesson='6' %}>第六課 小女生</a></li>
+                  <li><a class="dropdown-item" id="Grade3F_L7" href={% url 'bihua' Semester='first' Lesson='7' %}>第七課 淡水小鎮</a></li>
+                  <li><a class="dropdown-item" id="Grade3F_L8" href={% url 'bihua' Semester='first' Lesson='8' %}>第八課 安平古堡參觀記</a></li>
+                  <li><a class="dropdown-item" id="Grade3F_L9" href={% url 'bihua' Semester='first' Lesson='9' %}>第九課 馬太鞍的巴拉告</a></li>
+                  <li><a class="dropdown-item" id="Grade3F_L10" href={% url 'bihua' Semester='first' Lesson='10' %}>第十課 狐狸的故事</a></li>
+                  <li><a class="dropdown-item" id="Grade3F_L11" href={% url 'bihua' Semester='first' Lesson='11' %}>第十一課 巨人的花園</a></li>
+                  <li><a class="dropdown-item" id="Grade3F_L12" href={% url 'bihua' Semester='first' Lesson='12' %}>第十二課 奇特的朋友</a></li>
+                  <h5 style="margin-left:10px ;margin-top:5px"><b>下學期</b></h5>
+                  <li><a class="dropdown-item" href={% url 'bihua' Semester='second' Lesson='1' %} >第一課 許願</a></li>
+                  <li><a class="dropdown-item"  href={% url 'bihua' Semester='second' Lesson='2' %} >第二課 下雨的時候</a></li>
+                  <li><a class="dropdown-item"  href={% url 'bihua' Semester='second' Lesson='3' %} >第三課 遇見美如奶奶</a></li>
+                  <li><a class="dropdown-item"  href={% url 'bihua' Semester='second' Lesson='4' %} >第四課 工匠之祖</a></li>
+                  <li><a class="dropdown-item"  href={% url 'bihua' Semester='second' Lesson='5' %} >第五課 小丑魚和海葵</a></li>
+                  <li><a class="dropdown-item"  href={% url 'bihua' Semester='second' Lesson='6' %} >第六課 小女生</a></li>
+                  <li><a class="dropdown-item"  href={% url 'bihua' Semester='second' Lesson='7' %} >第七課 淡水小鎮</a></li>
+                  <li><a class="dropdown-item"  href={% url 'bihua' Semester='second' Lesson='8' %} >第八課 安平古堡參觀記</a></li>
+                  <li><a class="dropdown-item"  href={% url 'bihua' Semester='second' Lesson='9' %} >第九課 馬太鞍的巴拉告</a></li>
+                  <li><a class="dropdown-item"  href={% url 'bihua' Semester='second' Lesson='10' %} >第十課 狐狸的故事</a></li>
+                  <li><a class="dropdown-item"  href={% url 'bihua' Semester='second' Lesson='11' %} >第十一課 巨人的花園</a></li>
+                  <li><a class="dropdown-item"  href={% url 'bihua' Semester='second' Lesson='12' %} >第十二課 奇特的朋友</a></li>
                 </ul>
               </div>
             </div>
@@ -183,9 +197,9 @@
 
     <script>
       
-      function goToHanziWriterPage(i) {
+      {% comment %} function goToHanziWriterPage(i) {
         window.location.href = 'bihua?course=Grade3F_L' + i;
-    }
+      } {% endcomment %}
 
     </script>
     <script src="https://cdn.bootcss.com/FileSaver.js/1.3.8/FileSaver.min.js"></script> <!-- 下載檔案 -->

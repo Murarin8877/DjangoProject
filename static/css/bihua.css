@@ -2,11 +2,14 @@ html {
   height: 100%;
 }
 
+
 body {
   background-color: #fcf1eb;
   display: grid;
   grid-template-rows: 1fr auto;
 }
+
+
 
 .footer {
   grid-row-start: 2;
@@ -143,8 +146,30 @@ td,
 tfoot,
 th {
   /*部首筆畫大小*/
-  font-size: 20.5px;
+  font-size: 1.8rem;
+  font-family: 標楷體2, '標楷體', "BiauKai", "DFKai-sb", "cwTeXKai";
 }
+
+.chardictionary{
+  text-align: center;
+}
+
+.radical, td.vertical-line {  /*部首注音筆畫直線*/
+  position: relative;
+  text-align: center; /* 將文字置中 */
+}
+.radical, td.vertical-line::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 2px;
+  background-color: #9E8580;
+  
+}
+
+
 
 #menu {
   margin-right: 20px;
@@ -177,14 +202,14 @@ th {
   font-weight: bold;
 }
 
-#alltxt::-webkit-scrollbar {
+/* #alltxt::-webkit-scrollbar {
   display: none;
 }
 
 #strokeorder::-webkit-scrollbar {
   display: none;
 }
-
+ */
 #docs-target-HintAllstroke {
   text-align: center;
   /* 容器裡面置中 */

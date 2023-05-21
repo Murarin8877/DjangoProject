@@ -8,6 +8,19 @@ class test(models.Model):
     cBirthday = models.DateField(null=False)
     def __str__(self):
         return self.Radical
+
+
+class Thirdgrade_CourseHanzi(models.Model):
+    Hanzi = models.CharField(max_length=1,null=False)
+    Bopomofo = models.CharField(max_length=25,null=False)
+    Radical = models.CharField(max_length=1,null=True,blank=True)
+    R_Bopomofo= models.CharField(max_length=10,null=True,blank=True)    
+    Total_strokes = models.IntegerField(null=False)
+    cGrade = models.CharField(max_length=10,blank=False)
+    cSemester = models.CharField(max_length=10,blank=False)
+    cLesson = models.CharField(max_length=20,blank=False)
+    def __str__(self):
+        return self.Hanzi
 """ first semester上學期 F表示 跟second semester下學期表示S """
 """ 筆順練習三上第一課 """
 class ThirdgradeF_LessonOneHanzi(models.Model): 

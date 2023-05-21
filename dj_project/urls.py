@@ -25,7 +25,7 @@ urlpatterns = [
     path('login/',views.login),
     path('grade/',views.grade),
     path('grade/type/',views.type),
-    path('grade/type/bihua', views.bihua, name='bihua'),
+    path('grade/type/bihua/<str:Semester>/<str:Lesson>/', views.bihua, name='bihua'),
     path('grade/type/keyboard',views.keyboard),
     
 ]

@@ -1,9 +1,8 @@
 
-var CourseHanziArray;
+var CourseHanziArray;//只有Hanzi 欄位的值
 /* var CourseHanziArray = JSON.parse(sessionStorage.getItem('CourseHanziArray')); */ //抓取SelectCourse.html傳來的漢字資料 非使用django 方式
-var AllHanzi; //此課程生字
-let Hanzi_index = 0;//課程生字的在陣列位置
-var Hanzi_SvgSize=''; //CourseAllHanzi
+var AllHanzi; //此課程生字 從CourseHanziArray取得
+let Hanzi_index = 0;//課程生字的陣列位置
 var screenWidth; // 獲取螢幕寬度
 var screenHeight; // 獲取螢幕高度
 var svgWidth; //設定AllHanzi-container svg的寬
@@ -12,6 +11,7 @@ var svgHeight;//設定AllHanzi-container svg的高
 var VarAnimationspeed  //設定動畫播報速度
 var VarshowHintAfterMisses //設定錯誤次數提示
 var VardrawingWidth //設定畫筆大小
+var Varrate; //設定播報語音rate
 
 
 //請勿動 筆順練習時需要以下數值來讀取繪畫筆畫位置 。
@@ -20,9 +20,44 @@ function printStrokePoints(data) {
   /* console.log(`[${pointStrs.join(', ')}]`); */
 }
 
+
+
+
 window.onload = function () {
-  CourseHanziArray = CourseHanziArray_D; //使用django 方式 來抓取課程生字
-  AllHanzi = CourseHanziArray;//將陣列內容值，給予AllHanzi 承接
+
+
+  //================容器縮小====================================
+  //讓整個容器能縮小 and 更新筆順練習區塊
+  var element = document.getElementById('cotainerallDiv');//使用div將需要縮小的區塊包起來。必須將element的高寬放置adjust外，避免重新抓值，造成無法縮小。
+  var elementWidth = element.offsetWidth;
+  var elementHeight = element.offsetHeight;
+  var originalScale = 1; // 假設原始縮放比例為 1
+  function adjustElementSize() {
+    //console.log('Element Width:', elementWidth, 'Element Height:', elementHeight);
+    var windowWidth = window.innerWidth;
+    var windowHeight = window.innerHeight;
+    //console.log('Window Width:', windowWidth, 'Window Height:', windowHeight);
+    var scale = Math.min(windowWidth / elementWidth, windowHeight / elementHeight);
+
+    if (scale > originalScale) {
+      // 視窗放大，使用原始縮放比例
+      scale = originalScale;
+      
+    }
+
+    element.style.transform = 'scale(' + scale + ')';
+    console.log('Scale:', scale);
+    updateCharacter();//重新讓筆順練習背景更新
+  }
+
+  // 在窗口加載時和窗口大小改變時執行調整函式
+  window.addEventListener('load', adjustElementSize);
+  window.addEventListener('resize', adjustElementSize);
+  //================容器縮小====================================
+
+  CourseHanziArray = HanziCourseArray //抓取課程生字，從views傳來的值
+  AllHanzi = CourseHanziArray;//將陣列內容值，給予AllHanzi
+  console.log(AllHanzi);
   /* console.log(CourseHanziArray); */
   setTimeout(function () {
         $(document).ready(function () {
@@ -57,7 +92,7 @@ window.onload = function () {
     
     //按下筆順練習按鈕
     document.querySelector('#generally').addEventListener('click', function () {
-    Toasty( );//跳出Toasts
+    Toasty();//跳出Toasts
     updateCharacter();
     let i=1;
     var CompleteMsg='';//筆順練習完成提示訊息
@@ -89,32 +124,19 @@ window.onload = function () {
   });
   screenWidth = window.innerWidth; //螢幕寬度
   screenHeight = window.innerHeight; //螢幕高度
-  svgWidth = screenHeight * 0.12; //設置課程的所有漢字SVG高度為螢幕寬度的16%
-  svgHeight = screenHeight * 0.12;//設置課程的所有漢字SVG高度為螢幕高度的16%
-
-  
-  
+  svgWidth = screenHeight * 0.12; //設置課程的所有漢字SVG高度為螢幕寬度的12%
+  svgHeight = screenHeight * 0.12;//設置課程的所有漢字SVG高度為螢幕高度的12%
 };
-//按下筆順練習 需要跳出Toasts
-var option = 
-{
-    animation : true,
-    delay : 2000
-};
-function Toasty( )
-  {
-      var toastHTMLElement = document.getElementById( 'EpicToast' );
-      
-      var toastElement = new bootstrap.Toast( toastHTMLElement, option );
-      
-      toastElement.show( );
-  }
 
 
 
 
 
-//漢字筆順順序區塊(某個漢字的全筆順)
+
+
+
+
+//漢字筆順順序區塊(某個漢字的全部筆順) 右邊欄
 function renderFanningStrokes(target, strokes) {
   var docs_target_div = document.getElementById("docs-target-HintAllstroke");
   var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
@@ -192,14 +214,14 @@ function CanvasHanziBg(char){
       ctx.fillStyle = "#fff"; /* canvas背景顏色 */
       ctx.fillRect(0, 0, canvas.width,canvas.height ); /* 大小 */
       ctx.drawImage(img, 0, 0);
-      cPush(); //將此紀錄以圖片的方式 儲存置array中
+      cPush(); //圖片 儲存至array中
     };
     
   });
 }
 
 
-//取得此課程的所有漢字  HanziWriter.loadCharacterData() 是非同步的函數
+//取得此課程的所有漢字 左邊欄  HanziWriter.loadCharacterData() 是非同步的函數
 //此方法async/await 僅適用於現代瀏覽器 舊瀏覽器須注意
 async function CourseAllHanzi() 
 {
@@ -274,18 +296,17 @@ async function CourseAllHanzi()
     }
   } */
 
-  //更新漢字設定等等
+  //筆順練習漢字背景、更新漢字設定等等
   function updateCharacter() {
     /* 取得筆順區塊大小 */
     const divElement = document.getElementById('StrokeBlock');
     const divWidth = divElement.clientWidth;
     const divHeight = divElement.clientHeight;
+    /* console.log(divWidth,divHeight);
+    console.log(divElement2.clientWidth , divElement2.clientHeight); */
     document.querySelector('#target').innerHTML = '';
     SettingUpdateValue();
-    /* var character = document.querySelector('.js-char').value; */
-  
-    /* window.location.hash = character; */
-    
+    //筆順練習漢字背景
     writer = HanziWriter.create('target', AllHanzi[Hanzi_index], {
       width: divWidth,
       height: divHeight,
@@ -305,11 +326,17 @@ async function CourseAllHanzi()
     window.writer = writer;
   }
 
-//更新所設定之值 (播放速度等)
+///===========小功能列=======================
+//更新所設定之值 (播報速度、動畫速度、錯誤次數提示、筆順粗細)
 function SettingUpdateValue(){
+  Varrate = document.querySelector('[name="rate"]').value;
   VarAnimationspeed = document.querySelector('[name="Animationspeed"]').value;
   VarshowHintAfterMisses = document.querySelector('[name = HintAfterMisses]').value;
   VardrawingWidth = document.querySelector('[name = drawingWidth]').value;
+  document.getElementById('customRange1txt').innerHTML=Varrate;
+  document.getElementById('customRange2txt').innerHTML=VarAnimationspeed;
+  document.getElementById('customRange3txt').innerHTML=VarshowHintAfterMisses;
+  document.getElementById('customRange4txt').innerHTML=VardrawingWidth;
 }
 
 //AllHanzi-container
@@ -344,6 +371,7 @@ function Previoushanzi()//按下 上一個 的按鈕 <=
   AllHintStroke();
   HanziSvg_Activeborder();
   speechSynthesis.cancel(); // stop speaking
+  cPushArray.length = 0; //避免進階練習背景，跑到上一個漢字
 
 }
 
@@ -364,82 +392,118 @@ function Nexthanzi()//按下 下一個 的按鈕 =>
   AllHintStroke();
   HanziSvg_Activeborder();
   speechSynthesis.cancel(); // stop speaking
+  cPushArray.length = 0; //避免進階練習背景，跑到上一個漢字
 
 }
 
-const msg = new SpeechSynthesisUtterance(); //come from WEB Speech API
+//按下筆順練習 需要跳出Toasts
+var option = 
+{
+    animation : true,
+    delay : 2000
+};
+function Toasty()
+{
+      var toastHTMLElement = document.getElementById( 'EpicToast' );
+      var toastElement = new bootstrap.Toast( toastHTMLElement, option );
+      toastElement.show( );
+}
+
+///===========小功能列=======================
+
+
+//=========語音播報 漢字資訊========================
+const msg = new SpeechSynthesisUtterance();
 let voices = [];
 let options = [];
 let speakButton;
-//語音播報 漢字資訊
+
 window.addEventListener('load', function() {
   speakButton = document.querySelector('#speak');
   options = document.querySelectorAll('[type="range"], [id="customRange1txt"]');
   if (speakButton) {
-    console.log('speak')
-    speakButton.addEventListener('click',toggle);
+    console.log('speak');
+    speakButton.addEventListener('click', toggle);
   }
-  // 利用 SpeechSynthesis.getVoices()方法，取得包含所有SpeechSynthesisVoice 物件的陣列，而這些物件表示當前設備上可用之語音
+
   function populateVoices(){
     voices = this.getVoices();
     console.log(voices);
     msg.lang = "zh-TW"
   }
 
-  //觸發播放
-  function toggle(startOver = true){
+  // 觸發播放
+  function toggle(startOver = true) {
     speechSynthesis.cancel(); // stop speaking
-    if(startOver){
-    speechSynthesis.speak(msg); // restart speaking
+    if (startOver) {
+      speechSynthesis.speak(msg); // restart speaking
     }
   }
-  // 改變utterance的rate,pitch屬性的值
-  function setOption(){
-    if(this.name == 'rate'){
+
+  // 改變 utterance 的 rate 屬性的值
+  function setOption() {
+    if (this.name === 'rate') {
       console.log("成功");
-      console.log(this.name,this.value);
+      console.log(this.name, this.value);
       msg[this.name] = this.value;
       toggle();
       console.log(this.value);
       /* document.getElementById("customRange1txt").innerHTML = this.value; */
     }
-  
   }
-  function stopSpeaking()
-  {
-    speechSynthesis.cancel(); // stop speaking
-  }
-  speechSynthesis.addEventListener('voiceschanged',populateVoices);
-  options.forEach(option => option.addEventListener('change',setOption));
+
+  speechSynthesis.addEventListener('voiceschanged', populateVoices);
+  options.forEach(option => option.addEventListener('change', setOption));
 });
+//=========語音播報 漢字資訊========================
 
 
 
-//取得漢字的資訊 部首 筆畫
+//==========取得漢字資訊 部首 筆畫=========================
 function getData()
 {
-  /* get_Hanzidocs(); */
+  msg.text='';
   var a = AllHanzi[Hanzi_index];
-  /* var xhr = new XMLHttpRequest();
-  let s = "https://www.moedict.tw/raw/" + a */
-  var hanziDataArray = [[hanziDataJs[Hanzi_index].fields.Hanzi],[hanziDataJs[Hanzi_index].fields.Bopomofo],
-  [hanziDataJs[Hanzi_index].fields.Radical],[hanziDataJs[Hanzi_index].fields.Total_strokes]]; //漢字 注音 部首 總筆畫
+  // hanziDataJs為全部的欄位 0:漢字 1:注音 2:部首 3:部首注音 4:總筆畫
+  var hanziDataArray = [[hanziDataJs[Hanzi_index].fields.Hanzi],[hanziDataJs[Hanzi_index].fields.Bopomofo],[hanziDataJs[Hanzi_index].fields.Radical],[hanziDataJs[Hanzi_index].fields.R_Bopomofo],[hanziDataJs[Hanzi_index].fields.Total_strokes]]; 
+
+  //因某些部首念不出來或多音字，所以用其他詞替代
+  const hanziMapping = {
+    '載': '在',
+  };
+  const radicalMapping = {
+    '疋': '舒',
+    '辵': '輟',
+    '宀': '眠',
+    '攴' : '鋪',
+  };
+  const HanziVoice = hanziMapping[hanziDataArray[0]] || hanziDataArray[0];
+  const RadicalVoice = radicalMapping[hanziDataArray[2]] || hanziDataArray[2];
+  console.log(RadicalVoice);
+
 
   var hanziB_lastCharacter = hanziDataArray[1][0].charAt(hanziDataArray[1][0].length - 1); //判斷注音聲調 是否為第一聲 ，不判斷第一聲會省略不念
   let t='';
   if(hanziB_lastCharacter == '¯')
   {
-    t='第一聲'+hanziDataArray[0];
+    t='第一聲'+HanziVoice;
   }
   else{
-    t=hanziDataArray[0];
+    t=HanziVoice;
   }
-  //console.log(hanziB_lastCharacter); ¯
-
-  var msgData = hanziDataArray[0] + "," + hanziDataArray[2] + "部, 注音:" +  hanziDataArray[1]+ ",,,"+ t + "共"  +hanziDataArray[3] + "畫, "
+  var msgData = HanziVoice + "," + RadicalVoice + "部, 注音:" +  hanziDataArray[1]+ ",,,"+ t + "共"  +hanziDataArray[4] + "畫, ";
   msg.text = msgData; //播報要說的文字
+
+  // 將 hanziDataArray[2] 的值放入 radicalTd 元素
+  document.getElementById('radicalTd').textContent = hanziDataArray[2];
+
+  // 將 hanziDataArray[1] 的值放入 bopomofoTd 元素
+  document.getElementById('bopomofoTd').textContent = hanziDataArray[1];
+  
+  // 將 hanziDataArray[4] 的值放入 totalstrokeTd 元素
+  document.getElementById('totalstrokeTd').textContent = hanziDataArray[4];
   /* console.log(Hanzi_docs) */
-  text2 = "<table> <tr>";
+  /* text2 = "<table> <tr>";
 
   text2 += "<th bgcolor='transparent' colspan='2'>" +"部首"+"</th>";
   text2 += "<th bgcolor='transparent' colspan='2'>" +"注音"+"</th>";
@@ -448,9 +512,9 @@ function getData()
   text2 += "</tr><tr>";
   text2 += "<th colspan='2'>" + hanziDataArray[2] + "</th>";
   text2 += "<th colspan='2'>" + "<rt>" +  hanziDataArray[1] + "</rt>" + "</th>";
-  text2 += "<th colspan='2'>" + hanziDataArray[3] + "</th>";
-  text2 += "</tr></table>";
-  document.getElementById("char-dictionary").innerHTML = text2;
+  text2 += "<th colspan='2'>" + hanziDataArray[4] + "</th>";
+  text2 += "</tr></table>"; */
+  /* document.getElementById("char-dictionary").innerHTML = text2; */
   /* xhr.open("GET", s, true);
   xhr.onreadystatechange = function () {
       if (xhr.readyState === 4 && xhr.status === 200) {
@@ -513,7 +577,7 @@ function getData()
 } */
 
 
-//進階練習用
+//=========進階練習=========================
 var mousePressed = false;
 var lastX, lastY;
 var ctx;
@@ -550,7 +614,6 @@ function InitThis() {
 //透過圖片的方式來存儲筆畫
 function drawImage() {
   CanvasHanziBg(AllHanzi[Hanzi_index]);
-
   /* var canvasBg = document.getElementById('canvas');
   var dataURL = canvasBg.toDataURL();
   var img = new Image();
@@ -569,7 +632,6 @@ function confirmClear() {
     drawImage();
   } else {
     // 使用者選擇了取消
-    // 可選擇執行其他操作或不執行任何操作
   }
 }
 
@@ -618,8 +680,7 @@ function cPush() {
  */    cStep++;
     if (cStep < cPushArray.length) { cPushArray.length = cStep; }
     cPushArray.push(document.getElementById('canvas').toDataURL());
-/*     document.title = cStep + ":" + cPushArray.length;
- */
+
 }
 //上一個筆畫        
 function cUndo() {
@@ -629,8 +690,7 @@ function cUndo() {
       var canvasPic = new Image();
       canvasPic.src = cPushArray[cStep];
       canvasPic.onload = function () { ctx.drawImage(canvasPic, 0, 0); }
-/*       document.title = cStep + ":" + cPushArray.length;
- */
+
   }
 }     
 //下一個筆畫  
@@ -641,8 +701,6 @@ function cRedo() {
       var canvasPic = new Image();
       canvasPic.src = cPushArray[cStep];
       canvasPic.onload = function () { ctx.drawImage(canvasPic, 0, 0); }
-/*       document.title = cStep + ":" + cPushArray.length;
- */
     }
 }
 
@@ -664,3 +722,4 @@ function download(selector) {
   /* CanvasHanziBg(AllHanzi[Hanzi_index]);
   ctx.putImageData(0, 0, 0); */
 }
+//=========進階練習=========================
